@@ -4,9 +4,9 @@ import torch.nn as nn
 import math
 
 
-Wq = torch.randn(768, 768)
-Wk = torch.randn(768, 768)
-Wv = torch.randn(768, 768)
+Wq = torch.randn(768, 768).cuda()
+Wk = torch.randn(768, 768).cuda()
+Wv = torch.randn(768, 768).cuda()
 
 def self_attention(x):
     q = x@Wq
@@ -68,4 +68,7 @@ est.cuda()
 for i in range(100):
     input_ = torch.randn(768, 768).cuda()
     target = self_attention(input_)
-    output = torch.nn.MSELoss(est(input_) - target)
+    loss = torch.nn.MSELoss(est(input_) - target)
+    loss.backward()
+    print(loss)
+    optimizer.step()
