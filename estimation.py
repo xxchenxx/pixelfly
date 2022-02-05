@@ -43,7 +43,7 @@ class GradientEstimate(nn.Module):
             nn.Linear(hidden_state, dim[0])
         )
         if anchor is None:
-            self.anchor = torch.randn(dim)
+            self.anchor = torch.nn.Parameter(torch.randn(dim))
         else:
             self.anchor = anchor
     def forward(self, x):
