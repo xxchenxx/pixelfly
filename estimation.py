@@ -68,7 +68,7 @@ est.cuda()
 for i in range(100):
     input_ = torch.randn(768, 768).cuda()
     target = self_attention(input_)
-    loss = torch.nn.MSELoss(est(input_) - target)
+    loss = torch.nn.MSELoss(est(input_), target)
     loss.backward()
     print(loss)
     optimizer.step()
